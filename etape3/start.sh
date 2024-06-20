@@ -3,6 +3,25 @@
 # Créer le réseau Docker si ce n'est pas déjà fait
 docker network ls | grep -q reseau || docker network create reseau
 
+# Créer le dossier app s'il n'existe pas
+if [ ! -d "app" ]; then
+  mkdir app
+fi
+
+# Télécharger WordPress
+wget https://wordpress.org/latest.tar.gz -O wordpress.tar.gz
+tar -xzf wordpress.tar.gz -C app
+rm wordpress.tar.gz
+
+# Télécharger WordPress
+wget https://wordpress.org/latest.tar.gz -O wordpress.tar.gz
+tar -xzf wordpress.tar.gz -C app
+rm wordpress.tar.gz
+
+
+# Créer le réseau Docker si ce n'est pas déjà fait
+docker network ls | grep -q reseau || docker network create reseau
+
 # Lancer le conteneur MySQL
 docker run -d --network reseau --name db -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=wordpress -v db_data:/var/lib/mysql mysql:8.0
 
